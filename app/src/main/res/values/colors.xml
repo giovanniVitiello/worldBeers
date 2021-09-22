@@ -7,4 +7,6 @@
     <color name="dark_blue">#27424e</color>
     <color name="blue">#0009ff</color>
     <color name="light_pink">#E91E63</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_black">#0a0a0a</color>
 </resources>
