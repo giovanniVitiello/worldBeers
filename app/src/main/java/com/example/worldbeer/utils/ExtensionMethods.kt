@@ -1,4 +1,4 @@
-package com.example.regolo.utils
+package com.example.worldbeer.utils
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide

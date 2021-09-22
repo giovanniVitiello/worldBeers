@@ -1,4 +1,4 @@
-package com.example.regolo
+package com.example.worldbeer
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.example.regolo.utils
+package com.example.worldbeer.utils
 
 class Constants private constructor(){
 

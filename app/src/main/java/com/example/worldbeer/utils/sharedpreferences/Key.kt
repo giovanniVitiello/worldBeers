@@ -1,4 +1,4 @@
-package com.example.regolo.utils.sharedpreferences
+package com.example.worldbeer.utils.sharedpreferences
 
 class Key private constructor(){
 

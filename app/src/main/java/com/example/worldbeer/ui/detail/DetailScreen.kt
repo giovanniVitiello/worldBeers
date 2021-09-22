@@ -1,12 +1,12 @@
-package com.example.regolo.ui.detail
+package com.example.worldbeer.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.regolo.R
-import com.example.regolo.databinding.DetailScreenBinding
-import com.example.regolo.base.BaseFragment
+import com.example.worldbeer.R
+import com.example.worldbeer.databinding.DetailScreenBinding
+import com.example.worldbeer.base.BaseFragment
 
 class DetailScreen : BaseFragment() {
 
@@ -20,7 +20,6 @@ class DetailScreen : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         internalBinding = DetailScreenBinding.inflate(inflater, container, false)
-        internalBinding = DetailScreenBinding.inflate(layoutInflater)
 
         initView()
 

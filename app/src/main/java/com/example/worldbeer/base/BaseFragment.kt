@@ -1,4 +1,4 @@
-package com.example.regolo.base
+package com.example.worldbeer.base
 
 import android.net.Uri
 import android.os.Bundle

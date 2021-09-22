@@ -1,4 +1,4 @@
-package com.example.regolo.utils
+package com.example.worldbeer.utils
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable

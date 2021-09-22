@@ -1,11 +1,11 @@
-package com.example.regolo.ui.home
+package com.example.worldbeer.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.regolo.databinding.HomeScreenBinding
-import com.example.regolo.base.BaseFragment
+import com.example.worldbeer.databinding.HomeScreenBinding
+import com.example.worldbeer.base.BaseFragment
 
 class HomeScreen : BaseFragment() {
 

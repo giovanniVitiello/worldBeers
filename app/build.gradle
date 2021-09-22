@@ -22,8 +22,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.regolo"
-        minSdkVersion 22
+        applicationId "com.example.worldbeer"
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"

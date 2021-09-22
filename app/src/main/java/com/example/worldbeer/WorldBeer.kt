@@ -1,11 +1,10 @@
-package com.example.regolo
+package com.example.worldbeer
 
 import android.annotation.SuppressLint
 import androidx.multidex.MultiDexApplication
-import com.example.regolo.di.androidComponents
-import com.example.regolo.di.appComponents
-import com.example.regolo.di.databaseComponents
-import com.example.regolo.di.viewModels
+import com.example.worldbeer.di.androidComponents
+import com.example.worldbeer.di.appComponents
+import com.example.worldbeer.di.viewModels
 import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -14,9 +13,9 @@ import org.koin.core.logger.Level
 import org.koin.dsl.module
 import timber.log.Timber
 
-const val TAG_LOGGING = "REGOLO"
+const val TAG_LOGGING = "WORLDBEER"
 
-class Regolo : MultiDexApplication() {
+class WorldBeer : MultiDexApplication() {
     @SuppressLint("StringFormatInvalid")
     override fun onCreate() {
         super.onCreate()
@@ -29,7 +28,7 @@ class Regolo : MultiDexApplication() {
         startKoin {
             androidLogger(Level.NONE)
 //            androidLogger()
-            androidContext(this@Regolo)
+            androidContext(this@WorldBeer)
 
             val appSetupModule = module {
                 single { BuildConfig.DEBUG }
@@ -40,7 +39,6 @@ class Regolo : MultiDexApplication() {
                     appSetupModule,
                     androidComponents,
                     appComponents,
-                    databaseComponents,
                     viewModels
                 )
             )

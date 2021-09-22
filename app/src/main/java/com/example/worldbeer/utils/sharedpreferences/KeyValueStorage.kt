@@ -1,4 +1,4 @@
-package com.example.regolo.utils.sharedpreferences
+package com.example.worldbeer.utils.sharedpreferences
 
 import android.content.Context
 import android.content.SharedPreferences

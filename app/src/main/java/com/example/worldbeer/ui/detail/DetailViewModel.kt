@@ -1,6 +1,6 @@
-package com.example.regolo.ui.detail
+package com.example.worldbeer.ui.detail
 
-import com.example.regolo.utils.BaseViewModel
+import com.example.worldbeer.utils.BaseViewModel
 
 sealed class MainEvent {
     /*TODO("Not yet implemented")*/
