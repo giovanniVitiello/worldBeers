@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivBeer"
@@ -25,17 +25,55 @@
             app:srcCompat="@drawable/ic_user_thumb"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/search_product_result_text"
+            android:id="@+id/tvNameBeer"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textColor="#000"
-            android:layout_gravity="center"
+            android:textColor="@color/color_black"
+            android:layout_marginStart="8dp"
             android:textSize="20sp"
             android:maxLines="2"
-            android:paddingTop="12dp"
             app:layout_constraintStart_toEndOf="@+id/ivBeer"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Acetalteide" />
+            app:layout_constraintEnd_toStartOf="@+id/tvDescriptionBeer"
+            tools:text="Ceres" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAbvBeer"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/color_black"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/ivBeer"
+            app:layout_constraintTop_toBottomOf="@id/tvNameBeer"
+            android:text="@string/abv_" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvIbuBeer"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/color_black"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/ivBeer"
+            app:layout_constraintTop_toBottomOf="@id/tvAbvBeer"
+            android:text="@string/ibu_" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDescriptionBeer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/color_black"
+            android:textSize="14sp"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toEndOf="@+id/tvNameBeer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvNameBeer"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullamco laboriosam, nisi ut aliquid ex ea commodi consequatur. Duis aute irure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

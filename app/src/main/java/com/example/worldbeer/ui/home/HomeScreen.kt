@@ -19,7 +19,6 @@ class HomeScreen : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         internalBinding = HomeScreenBinding.inflate(inflater, container, false)
-        internalBinding = HomeScreenBinding.inflate(layoutInflater)
 
         initView()
 

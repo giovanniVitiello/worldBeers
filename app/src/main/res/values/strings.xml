@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">cerca</string>
+    <string name="abv_">Abv: %s%</string>
+    <string name="ibu_">Ibu: %s%</string>
+    <string name="base_url">https://api.punkapi.com/</string>
 </resources>
