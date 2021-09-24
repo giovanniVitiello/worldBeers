@@ -1,5 +1,7 @@
 package com.example.worldbeer.ui.home
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -51,10 +53,18 @@ class HomeScreen : BaseFragment() {
 
         homeViewModel.send(HomeEvent.LoadData)
         initView()
-
+        initToolbar()
         observeViewModel()
 
         return binding.root
+    }
+
+    private fun initToolbar() {
+        val activity = requireActivity() as AppCompatActivity
+        val toolbar: androidx.appcompat.widget.Toolbar? = activity.findViewById(R.id.toolbar)
+        activity.setSupportActionBar(toolbar)
+
+        activity.supportActionBar?.hide()
     }
 
     private fun initView() {
@@ -121,7 +131,7 @@ class HomeScreen : BaseFragment() {
         binding.rvProductResults.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@HomeScreen.requireContext())
-            adapter = HomeAdapter(beerList, newsItemListener)
+            adapter = HomeAdapter(beerList, newsItemListener, resources)
         }
     }
 

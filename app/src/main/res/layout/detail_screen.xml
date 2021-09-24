@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:textColor="@color/color_black"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         android:textSize="20sp"
-        android:gravity="center"
+        android:gravity="start"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Ceres" />
+        android:text="@string/first_brewed_s" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvFoodPairing"
@@ -27,11 +27,11 @@
         android:textColor="@color/color_black"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
-        android:gravity="center"
+        android:gravity="start"
         app:layout_constraintTop_toBottomOf="@+id/tvFirstBrewed"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvFirstBrewed"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Ceres" />
+        android:text="@string/food_pairing_s" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvBrewersTips"
@@ -40,11 +40,11 @@
         android:textColor="@color/color_black"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
-        android:gravity="center"
+        android:gravity="start"
         app:layout_constraintTop_toBottomOf="@+id/tvFoodPairing"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvFirstBrewed"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Ceres" />
+        android:text="@string/brewers_tips_s" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

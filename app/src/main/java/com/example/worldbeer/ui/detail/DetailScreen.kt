@@ -1,10 +1,15 @@
 package com.example.worldbeer.ui.detail
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.worldbeer.R
 import com.example.worldbeer.databinding.DetailScreenBinding
 import com.example.worldbeer.base.BaseFragment
@@ -38,22 +43,31 @@ class DetailScreen : BaseFragment() {
             beerItem = gson.fromJson(beerItemString, BeerDomain::class.java)
         }
 
-        val activity = requireActivity() as AppCompatActivity
-        val toolbar: androidx.appcompat.widget.Toolbar? = activity.findViewById(R.id.toolbar)
-        activity.setSupportActionBar(toolbar)
-        activity.toolbar.title = beerItem?.name
-
-        activity.supportActionBar?.show()
+        initToolbar()
 
         initView()
 
         return binding.root
     }
 
+    private fun initToolbar() {
+        val activity = requireActivity() as AppCompatActivity
+        val toolbar: Toolbar? = activity.findViewById(R.id.toolbar)
+        activity.setSupportActionBar(toolbar)
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        activity.toolbar.title = beerItem?.name
+
+        activity.supportActionBar?.show()
+        activity.toolbar?.setNavigationOnClickListener {
+            popBackStack()
+        }
+    }
+
     private fun initView() {
-        binding.tvBrewersTips.text = beerItem?.brewersTips.toString()
-        binding.tvFirstBrewed.text = beerItem?.firstBrewed.toString()
-        binding.tvFoodPairing.text = beerItem?.foodPairing.toString()
+        binding.tvBrewersTips.text = String.format(getString(R.string.brewers_tips_s), beerItem?.brewersTips.toString())
+        binding.tvFirstBrewed.text = String.format(getString(R.string.first_brewed_s), beerItem?.firstBrewed.toString())
+        binding.tvFoodPairing.text = String.format(getString(R.string.food_pairing_s), beerItem?.foodPairing.toString())
     }
 
     override fun onDestroy() {
