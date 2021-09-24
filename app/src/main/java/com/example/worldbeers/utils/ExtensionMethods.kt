@@ -6,21 +6,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 
 val <T> T.exhaustive: T
     get() = this
-
-fun ImageView.loadRoundImageFromUrl(imageUrl: String?) {
-    imageUrl?.let {
-        val httpsImageUrl = imageUrl.replace("http://", "https://")
-
-        Glide.with(this.context)
-            .load(httpsImageUrl)
-            .apply(RequestOptions.circleCropTransform())
-            .into(this)
-    }
-}
 
 fun ImageView.loadImageFromUrl(imageUrl: String?) {
     imageUrl?.let {

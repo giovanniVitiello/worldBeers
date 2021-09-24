@@ -48,7 +48,7 @@ class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         nameBeer.text = beerItem.name
         abvBeer.text = String.format(resources.getString(R.string.abv_), beerItem.abv ?: resources.getString(R.string.n_a))
-        ibuBeer.text = String.format( resources.getString(R.string.ibu_), beerItem.ibu ?: resources.getString(R.string.n_a))
+        ibuBeer.text = String.format(resources.getString(R.string.ibu_), beerItem.ibu ?: resources.getString(R.string.n_a))
         descriptionBeer.text = beerItem.description
 
         imageBeer.loadImageFromUrl(beerItem.imageUrl)

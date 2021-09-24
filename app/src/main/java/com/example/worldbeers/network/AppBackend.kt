@@ -1,7 +1,6 @@
 package com.example.worldbeers.network
 
-import android.content.res.Resources
-import com.example.worldbeers.R
+import com.example.worldbeers.BuildConfig
 import com.example.worldbeers.ui.home.model.BeerResponse
 import com.google.gson.Gson
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
@@ -12,12 +11,11 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.*
+import retrofit2.http.GET
 
 class AppBackend(
     gson: Gson,
-    networkThread: Scheduler = Schedulers.io(),
-    resources: Resources
+    networkThread: Scheduler = Schedulers.io()
 ) {
     private val httpLoggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -29,7 +27,7 @@ class AppBackend(
     private val api = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(networkThread))
-        .baseUrl(resources.getString(R.string.base_url))
+        .baseUrl(BuildConfig.BASE_API_URL)
         .client(privateOkHttpClient)
         .build()
         .create(ListingApi::class.java)

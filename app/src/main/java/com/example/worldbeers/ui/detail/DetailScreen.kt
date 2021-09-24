@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.worldbeers.R
-import com.example.worldbeers.databinding.DetailScreenBinding
 import com.example.worldbeers.base.BaseFragment
+import com.example.worldbeers.databinding.DetailScreenBinding
 import com.example.worldbeers.ui.home.model.BeerDomain
 import com.example.worldbeers.utils.KeyUtils
 import com.google.gson.Gson

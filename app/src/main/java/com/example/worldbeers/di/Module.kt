@@ -21,7 +21,7 @@ val androidComponents = module {
 val appComponents = module {
     single { createGson() }
     single { AppProvider(backend = get()) } bind AppContract::class
-    single { AppBackend(gson = get(), resources = get()) }
+    single { AppBackend(gson = get()) }
 }
 
 val viewModels = module {
