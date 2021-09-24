@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.worldbeer">
+    package="com.example.worldbeers">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.example.worldbeer.WorldBeer"
+        android:name="com.example.worldbeers.WorldBeers"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.worldbeer.ui.main.MainScreen"
+            android:name="com.example.worldbeers.ui.main.MainScreen"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

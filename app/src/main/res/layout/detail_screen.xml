@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_yellow_50"
-    tools:context=".ui.detail.DetailScreen">
+    tools:context="com.example.worldbeers.ui.detail.DetailScreen">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvFirstBrewed"

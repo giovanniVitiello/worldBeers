@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/light_yellow_50"
     android:id="@+id/clHomeScreen"
-    tools:context=".ui.home.HomeScreen">
+    tools:context="com.example.worldbeers.ui.home.HomeScreen">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineStart"
