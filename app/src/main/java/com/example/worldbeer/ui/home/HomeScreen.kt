@@ -1,22 +1,19 @@
 package com.example.worldbeer.ui.home
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.worldbeer.R
-import com.example.worldbeer.databinding.HomeScreenBinding
 import com.example.worldbeer.base.BaseFragment
+import com.example.worldbeer.databinding.HomeScreenBinding
 import com.example.worldbeer.ui.home.model.BeerDomain
 import com.example.worldbeer.utils.KeyUtils.Companion.BEER_ITEM
 import com.example.worldbeer.utils.exhaustive
@@ -90,10 +87,15 @@ class HomeScreen : BaseFragment() {
             override fun afterTextChanged(editable: Editable) {
                 if (editable.toString().isNotEmpty()) {
                     val tmpList = mutableListOf<BeerDomain>()
-                    beerList.forEach {
-                        if (it.name != null) {
-                            if (it.name.startsWith(editable.toString(), true)) {
-                                tmpList.add(it)
+                    var alphabeticalList = mutableListOf<BeerDomain>()
+                    beerList.forEach { beerDomain ->
+                        if (beerDomain.name != null && beerDomain.description != null) {
+                            if (beerDomain.name.contains(editable.toString(), true)) {
+                                tmpList.add(beerDomain)
+                                alphabeticalList = tmpList.sortedBy { it.name }.toMutableList()
+                            } else if (tmpList.isEmpty() && beerDomain.description.contains(editable.toString(), true)) {
+                                tmpList.add(beerDomain)
+                                alphabeticalList = tmpList.sortedBy { it.name }.toMutableList()
                             }
                         }
                     }
@@ -103,7 +105,7 @@ class HomeScreen : BaseFragment() {
                         itemAnimator = DefaultItemAnimator()
                         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                         binding.searchProductResults.visibility = View.VISIBLE
-                        searchItemAdapter.submitList(tmpList)
+                        searchItemAdapter.submitList(alphabeticalList)
                     }
                 } else {
                     binding.searchProductResults.visibility = View.GONE

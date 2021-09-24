@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_yellow_50"
     tools:context=".ui.detail.DetailScreen">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -26,6 +27,7 @@
         android:layout_width="0dp"
         android:textColor="@color/color_black"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:textSize="20sp"
         android:gravity="start"
         app:layout_constraintTop_toBottomOf="@+id/tvFirstBrewed"
@@ -39,6 +41,7 @@
         android:layout_width="0dp"
         android:textColor="@color/color_black"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:textSize="20sp"
         android:gravity="start"
         app:layout_constraintTop_toBottomOf="@+id/tvFoodPairing"
