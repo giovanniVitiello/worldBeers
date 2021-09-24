@@ -34,7 +34,7 @@
             app:layout_constraintStart_toEndOf="@+id/ivBeer"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Ceressssssssssssssssssssssssssssssssssssssssssssss" />
+            tools:text="Ceres" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvAbvBeer"

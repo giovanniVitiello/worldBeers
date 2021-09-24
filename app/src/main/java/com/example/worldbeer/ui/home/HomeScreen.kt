@@ -6,6 +6,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -47,12 +49,10 @@ class HomeScreen : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         internalBinding = HomeScreenBinding.inflate(inflater, container, false)
 
-//        requireActivity().toolbar.visibility = View.GONE
-
         homeViewModel.send(HomeEvent.LoadData)
         initView()
-        observeViewModel()
 
+        observeViewModel()
 
         return binding.root
     }
@@ -81,8 +81,10 @@ class HomeScreen : BaseFragment() {
                 if (editable.toString().isNotEmpty()) {
                     val tmpList = mutableListOf<BeerDomain>()
                     beerList.forEach {
-                        if (it.name.startsWith(editable.toString(), true)) {
-                            tmpList.add(it)
+                        if (it.name != null) {
+                            if (it.name.startsWith(editable.toString(), true)) {
+                                tmpList.add(it)
+                            }
                         }
                     }
                     binding.searchProductResults.apply {
