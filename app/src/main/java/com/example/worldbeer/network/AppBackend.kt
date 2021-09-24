@@ -2,6 +2,7 @@ package com.example.worldbeer.network
 
 import android.content.res.Resources
 import com.example.worldbeer.R
+import com.example.worldbeer.ui.home.model.BeerDomain
 import com.example.worldbeer.ui.home.model.BeerResponse
 import com.google.gson.Gson
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
@@ -34,12 +35,12 @@ class AppBackend(
         .build()
         .create(ListingApi::class.java)
 
-    fun getBeerList(): Single<BeerResponse> = api.getBeerList()
+    fun getBeerList(): Single<List<BeerResponse>> = api.getBeerList()
 
     private interface ListingApi {
 
         @GET("/v2/beers")
-        fun getBeerList(): Single<BeerResponse>
+        fun getBeerList(): Single<List<BeerResponse>>
 
     }
 }

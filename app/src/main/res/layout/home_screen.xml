@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/clHomeScreen"
     tools:context=".ui.home.HomeScreen">
 
     <androidx.constraintlayout.widget.Guideline
@@ -19,6 +20,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_main"
+        style="@style/ProgressBarDefault"
+        android:elevation="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/searchAsset"
@@ -71,19 +83,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvProductResults"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/pullToRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fadeScrollbars="false"
-                android:scrollbarThumbVertical="@drawable/scrollbar"
-                android:scrollbarTrackVertical="@drawable/scrollbar_track"
-                android:scrollbars="vertical"
-                android:verticalScrollbarPosition="left"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_result" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvProductResults"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fadeScrollbars="false"
+                    android:scrollbarThumbVertical="@drawable/scrollbar"
+                    android:scrollbarTrackVertical="@drawable/scrollbar_track"
+                    android:scrollbars="vertical"
+                    android:verticalScrollbarPosition="left"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_result" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.bosphere.fadingedgelayout.FadingEdgeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

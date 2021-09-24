@@ -1,14 +1,9 @@
 package com.example.worldbeer.base
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.NavDirections
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
-import androidx.navigation.Navigator
+import androidx.navigation.*
 import timber.log.Timber
 
 @Suppress("MethodOverloading")
@@ -39,17 +34,6 @@ abstract class BaseFragment : Fragment() {
 
     fun popBackStack(idRes: Int, inclusive: Boolean) {
         navController?.popBackStack(idRes, inclusive)
-    }
-
-    /*
-     * safe navigator
-     * */
-    fun safeNavigate(uri: Uri?) {
-        try {
-            navController?.navigate(uri!!)
-        } catch (e: Exception) {
-            Timber.e(tAG, "safeNavigate: $e")
-        }
     }
 
     fun safeNavigate(idRes: Int) {

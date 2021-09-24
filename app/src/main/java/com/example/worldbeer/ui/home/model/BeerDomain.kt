@@ -4,6 +4,6 @@ class BeerDomain(
     val name: String,
     val imageUrl: String,
     val description: String,
-    val abv: String,
-    val ibu: String
+    val abv: String?,
+    val ibu: String?
 )

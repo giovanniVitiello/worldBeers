@@ -13,7 +13,7 @@ sealed class HomeEvent {
 
 sealed class HomeState {
     object InProgress : HomeState()
-    data class LoadedData(val data: BeerDomain) : HomeState()
+    data class LoadedData(val data: List<BeerDomain>) : HomeState()
     data class Error(val error: Throwable) : HomeState()
 }
 

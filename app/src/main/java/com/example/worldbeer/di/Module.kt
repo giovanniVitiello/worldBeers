@@ -7,6 +7,7 @@ import com.example.worldbeer.ui.home.HomeViewModel
 import com.example.worldbeer.utils.sharedpreferences.KeyValueStorageFactory
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.bind
@@ -24,7 +25,7 @@ val appComponents = module {
 }
 
 val viewModels = module {
-    viewModel { HomeViewModel(scheduler = get(), contract = get()) }
+    viewModel { HomeViewModel(scheduler = AndroidSchedulers.mainThread(), contract = get()) }
 }
 
 private fun createGson(): Gson = GsonBuilder().create()

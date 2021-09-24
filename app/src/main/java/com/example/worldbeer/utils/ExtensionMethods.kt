@@ -1,5 +1,9 @@
 package com.example.worldbeer.utils
 
+import android.app.Activity
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -28,12 +32,13 @@ fun ImageView.loadImageFromUrl(imageUrl: String?) {
     }
 }
 
-fun ImageView.transformImageToRoundImage(imageUrl: String?) {
-    imageUrl?.let {
-
-        Glide.with(this.context)
-            .load(imageUrl)
-            .apply(RequestOptions.circleCropTransform())
-            .into(this)
+fun Context.hideKeyboard() {
+    val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    //Find the currently focused view, so we can grab the correct window token from it.
+    var view = (this as Activity).currentFocus
+    //If no view currently has focus, create a new one, just so we can grab a window token from it
+    if (view == null) {
+        view = View(this)
     }
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }

@@ -6,4 +6,6 @@
     <string name="abv_">Abv: %s%</string>
     <string name="ibu_">Ibu: %s%</string>
     <string name="base_url">https://api.punkapi.com/</string>
+    <string name="retry">Riprova</string>
+    <string name="network_error">Errore di rete, Riprova più tardi!</string>
 </resources>

@@ -10,6 +10,16 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ProgressBarDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/light_yellow_50</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:elevation">5dp</item>
+        <item name="android:progress">1</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

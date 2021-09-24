@@ -8,7 +8,7 @@
     android:elevation="0dp"
     app:cardCornerRadius="10dp"
     android:padding="6dp"
-    android:layout_margin="4dp"
+    android:layout_margin="12dp"
     app:cardBackgroundColor="@color/color_white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,8 +17,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivBeer"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:scaleType="centerCrop"
@@ -27,15 +27,14 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvNameBeer"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:textColor="@color/color_black"
             android:layout_marginStart="8dp"
             android:textSize="20sp"
-            android:maxLines="2"
             app:layout_constraintStart_toEndOf="@+id/ivBeer"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvDescriptionBeer"
-            tools:text="Ceres" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Ceressssssssssssssssssssssssssssssssssssssssssssss" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvAbvBeer"
@@ -54,25 +53,23 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textColor="@color/color_black"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="8dp"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/ivBeer"
-            app:layout_constraintTop_toBottomOf="@id/tvAbvBeer"
+            app:layout_constraintStart_toEndOf="@+id/tvAbvBeer"
+            app:layout_constraintTop_toBottomOf="@id/tvNameBeer"
             android:text="@string/ibu_" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDescriptionBeer"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:textColor="@color/color_black"
             android:textSize="14sp"
-            android:gravity="center_horizontal"
-            app:layout_constraintStart_toEndOf="@+id/tvNameBeer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvNameBeer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivBeer"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullamco laboriosam, nisi ut aliquid ex ea commodi consequatur. Duis aute irure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
