@@ -56,6 +56,11 @@ class HomeScreen : BaseFragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.searchAsset.text?.clear()
+    }
+
     private fun initToolbar() {
         val activity = requireActivity() as AppCompatActivity
         val toolbar: androidx.appcompat.widget.Toolbar? = activity.findViewById(R.id.toolbar)
@@ -76,9 +81,7 @@ class HomeScreen : BaseFragment() {
                 binding.searchProductResults.visibility = View.GONE
                 binding.searchAsset.text?.clear()
                 requireContext().hideKeyboard()
-                val bundle = Bundle()
-                bundle.putString(BEER_ITEM, gson.toJson(itemElement))
-                findNavController().navigate(R.id.detailScreen, bundle)
+                updateList(mutableListOf(itemElement))
             }
         }
 
@@ -97,6 +100,7 @@ class HomeScreen : BaseFragment() {
                                 tmpList.add(beerDomain)
                                 alphabeticalList = tmpList.sortedBy { it.name }.toMutableList()
                             }
+                            updateList(alphabeticalList)
                         }
                     }
                     binding.searchProductResults.apply {
@@ -121,19 +125,21 @@ class HomeScreen : BaseFragment() {
         homeViewModel.observe(lifecycleScope) {
             when (it) {
                 is HomeState.InProgress -> showProgressBar()
-                is HomeState.LoadedData -> showList(it.data)
+                is HomeState.LoadedData -> {
+                    beerList = it.data.toMutableList()
+                    updateList(beerList)
+                }
                 is HomeState.Error -> showError(it.error.message.toString())
             }.exhaustive
         }
     }
 
-    private fun showList(data: List<BeerDomain>) {
+    private fun updateList(data: MutableList<BeerDomain>) {
         binding.progressBarMain.visibility = View.GONE
-        beerList = data.toMutableList()
         binding.rvProductResults.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@HomeScreen.requireContext())
-            adapter = HomeAdapter(beerList, newsItemListener, resources)
+            adapter = HomeAdapter(data, newsItemListener, resources)
         }
     }
 
