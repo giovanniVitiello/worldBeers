@@ -4,6 +4,7 @@ import com.example.worldbeers.network.AppBackend
 import com.example.worldbeers.network.AppContract
 import com.example.worldbeers.network.AppProvider
 import com.example.worldbeers.ui.home.HomeViewModel
+import com.example.worldbeers.ui.home.HomeViewModelCoroutines
 import com.example.worldbeers.utils.sharedpreferences.KeyValueStorageFactory
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -26,6 +27,7 @@ val appComponents = module {
 
 val viewModels = module {
     viewModel { HomeViewModel(scheduler = AndroidSchedulers.mainThread(), contract = get()) }
+    viewModel { HomeViewModelCoroutines(contract = get()) }
 }
 
 private fun createGson(): Gson = GsonBuilder().create()

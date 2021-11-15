@@ -1,8 +1,11 @@
 package com.example.worldbeers.ui.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.worldbeers.network.AppContract
 import com.example.worldbeers.ui.home.model.BeerDomain
 import com.example.worldbeers.utils.BaseViewModel
+import com.example.worldbeers.utils.Resource
 import com.example.worldbeers.utils.exhaustive
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
@@ -11,18 +14,17 @@ sealed class HomeEvent {
     object LoadData : HomeEvent()
 }
 
-sealed class HomeState {
-    object InProgress : HomeState()
-    data class LoadedData(val data: List<BeerDomain>) : HomeState()
-    data class Error(val error: Throwable) : HomeState()
-}
-
 class HomeViewModel(
     private val scheduler: Scheduler,
     private val contract: AppContract
-) : BaseViewModel<HomeState, HomeEvent>() {
+) : BaseViewModel<HomeEvent>() {
 
     private var dataSubscription = Disposable.disposed()
+    private val _liveData = MutableLiveData<Resource<List<BeerDomain>>>()
+    val liveData: LiveData<Resource<List<BeerDomain>>>
+        get() {
+            return _liveData
+        }
 
     override fun send(event: HomeEvent) {
         when (event) {
@@ -32,14 +34,19 @@ class HomeViewModel(
 
     private fun loadDetailData() {
         if (dataSubscription.isDisposed) {
-            post(HomeState.InProgress)
-            dataSubscription = contract.getBeerList()
-                .observeOn(scheduler)
-                .subscribe(
-                    { data -> post(HomeState.LoadedData(data)) },
-                    { error -> post(HomeState.Error(error)) }
-                )
-            disposables.add(dataSubscription)
+            _liveData.postValue(Resource.loading(null))
+            if (contract.getBeerList().data != null) {
+                dataSubscription = contract.getBeerList().data!!
+                    .observeOn(scheduler)
+                    .subscribe(
+                        { data -> _liveData.postValue(Resource.success(data)) },
+                        { error -> _liveData.postValue(Resource.error(error.toString(), null)) }
+                    )
+            } else {
+                _liveData.postValue(Resource.error("An unknown error occurred", null))
+            }
         }
+        disposables.add(dataSubscription)
     }
 }
+

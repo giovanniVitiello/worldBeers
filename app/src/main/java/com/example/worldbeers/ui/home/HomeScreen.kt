@@ -16,6 +16,8 @@ import com.example.worldbeers.base.BaseFragment
 import com.example.worldbeers.databinding.HomeScreenBinding
 import com.example.worldbeers.ui.home.model.BeerDomain
 import com.example.worldbeers.utils.KeyUtils.Companion.BEER_ITEM
+import com.example.worldbeers.utils.Resource
+import com.example.worldbeers.utils.Status
 import com.example.worldbeers.utils.exhaustive
 import com.example.worldbeers.utils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
@@ -28,6 +30,7 @@ class HomeScreen : BaseFragment() {
 
     private var internalBinding: HomeScreenBinding? = null
     private val homeViewModel: HomeViewModel by inject()
+    private val homeViewModelCoroutines: HomeViewModelCoroutines by inject()
     private val gson: Gson by inject()
     private var beerList = mutableListOf<BeerDomain>()
     private lateinit var searchItemAdapter: SearchItemAdapter
@@ -48,7 +51,8 @@ class HomeScreen : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         internalBinding = HomeScreenBinding.inflate(inflater, container, false)
 
-        homeViewModel.send(HomeEvent.LoadData)
+//        homeViewModel.send(HomeEvent.LoadData)
+        homeViewModelCoroutines.send(HomeEventCoroutines.LoadData)
         initView()
         initToolbar()
         observeViewModel()
@@ -122,14 +126,33 @@ class HomeScreen : BaseFragment() {
     }
 
     private fun observeViewModel() {
-        homeViewModel.observe(lifecycleScope) {
-            when (it) {
-                is HomeState.InProgress -> showProgressBar()
-                is HomeState.LoadedData -> {
-                    beerList = it.data.toMutableList()
-                    updateList(beerList)
+        homeViewModel.liveData.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> showProgressBar()
+                Status.SUCCESS -> {
+                    if (it.data != null) {
+                        beerList = it.data.toMutableList()
+                        updateList(beerList)
+                    } else {
+                        updateList(mutableListOf())
+                    }
                 }
-                is HomeState.Error -> showError(it.error.message.toString())
+                Status.ERROR -> showError(it.message.toString())
+            }.exhaustive
+        }
+
+        homeViewModelCoroutines.liveData.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> showProgressBar()
+                Status.SUCCESS -> {
+                    if (it.data != null) {
+                        beerList = it.data.toMutableList()
+                        updateList(beerList)
+                    } else {
+                        updateList(mutableListOf())
+                    }
+                }
+                Status.ERROR -> showError(it.message.toString())
             }.exhaustive
         }
     }
