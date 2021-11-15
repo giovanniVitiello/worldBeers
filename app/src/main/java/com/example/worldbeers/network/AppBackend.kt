@@ -35,14 +35,14 @@ class AppBackend(
         .build()
         .create(ListingApi::class.java)
 
-    fun getBeerList(): Response<Single<List<BeerResponse>>> = api.getBeerList()
+    fun getBeerList(): Single<Response<List<BeerResponse>>> = api.getBeerList()
 
     suspend fun getBeerListCoroutines(): Response<List<BeerResponse>> = api.getBeerListCoroutines()
 
     interface ListingApi {
 
         @GET("/v2/beers")
-        fun getBeerList(): Response<Single<List<BeerResponse>>>
+        fun getBeerList(): Single<Response<List<BeerResponse>>>
 
         @GET("/v2/beers")
         suspend fun getBeerListCoroutines(): Response<List<BeerResponse>>

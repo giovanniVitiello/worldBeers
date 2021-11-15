@@ -35,16 +35,12 @@ class HomeViewModel(
     private fun loadDetailData() {
         if (dataSubscription.isDisposed) {
             _liveData.postValue(Resource.loading(null))
-            if (contract.getBeerList().data != null) {
-                dataSubscription = contract.getBeerList().data!!
-                    .observeOn(scheduler)
-                    .subscribe(
-                        { data -> _liveData.postValue(Resource.success(data)) },
-                        { error -> _liveData.postValue(Resource.error(error.toString(), null)) }
-                    )
-            } else {
-                _liveData.postValue(Resource.error("An unknown error occurred", null))
-            }
+            dataSubscription = contract.getBeerList()
+                .observeOn(scheduler)
+                .subscribe(
+                    { data -> _liveData.postValue(data) },
+                    { error -> _liveData.postValue(Resource.error(error.toString(), null)) }
+                )
         }
         disposables.add(dataSubscription)
     }
