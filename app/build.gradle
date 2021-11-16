@@ -52,6 +52,7 @@ ext {
     version_constraint_layout = "2.0.1"
     version_okhttp = "4.9.0"
     version_retrofit = "2.9.0"
+    paging_version = "3.0.0"
 }
 
 dependencies {
@@ -110,6 +111,10 @@ dependencies {
 
     //refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+
+    //paging
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     //Test
     testImplementation 'junit:junit:4.13.2'

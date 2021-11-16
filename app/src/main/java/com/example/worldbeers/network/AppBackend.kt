@@ -15,6 +15,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 class AppBackend(
     gson: Gson,
@@ -39,6 +40,8 @@ class AppBackend(
 
     suspend fun getBeerListCoroutines(): Response<List<BeerResponse>> = api.getBeerListCoroutines()
 
+    suspend fun getBeerListPagingCoroutines(page: Int, size: Int): Response<List<BeerResponse>> = api.getBeerListPagingCoroutines(page, size)
+
     interface ListingApi {
 
         @GET("/v2/beers")
@@ -46,5 +49,11 @@ class AppBackend(
 
         @GET("/v2/beers")
         suspend fun getBeerListCoroutines(): Response<List<BeerResponse>>
+
+        @GET("/v2/beers")
+        suspend fun getBeerListPagingCoroutines(
+            @Query("page") page: Int,
+            @Query("per_page") size: Int
+        ): Response<List<BeerResponse>>
     }
 }

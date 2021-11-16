@@ -21,3 +21,9 @@ enum class Status {
     ERROR,
     LOADING
 }
+
+suspend fun <T : Any> safeApiCall(call: suspend () -> Resource<T>): Resource<T> = try {
+    call.invoke()
+} catch (e: Exception) {
+    Resource.error(e.message.toString(), null)
+}

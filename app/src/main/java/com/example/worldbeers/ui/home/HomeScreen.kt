@@ -16,13 +16,16 @@ import com.example.worldbeers.base.BaseFragment
 import com.example.worldbeers.databinding.HomeScreenBinding
 import com.example.worldbeers.ui.home.model.BeerDomain
 import com.example.worldbeers.utils.KeyUtils.Companion.BEER_ITEM
-import com.example.worldbeers.utils.Resource
 import com.example.worldbeers.utils.Status
 import com.example.worldbeers.utils.exhaustive
 import com.example.worldbeers.utils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.main_screen.*
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -34,9 +37,11 @@ class HomeScreen : BaseFragment() {
     private val gson: Gson by inject()
     private var beerList = mutableListOf<BeerDomain>()
     private lateinit var searchItemAdapter: SearchItemAdapter
+    private lateinit var pagingBeersAdapter: PagingBeersAdapter
     private lateinit var searchListenerInterface: ListenerSearchInterface
+    private var searchJob: Job? = null
 
-    private val newsItemListener = HomeAdapter.OnClickListener { content ->
+    private val newsItemListener = PagingBeersAdapter.OnClickListener { content ->
         val bundle = Bundle()
         bundle.putString(BEER_ITEM, gson.toJson(content))
         findNavController().navigate(R.id.detailScreen, bundle)
@@ -48,16 +53,32 @@ class HomeScreen : BaseFragment() {
     override val tAG
         get() = this.javaClass.kotlin.simpleName
 
+    @InternalCoroutinesApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         internalBinding = HomeScreenBinding.inflate(inflater, container, false)
 
 //        homeViewModel.send(HomeEvent.LoadData)
-        homeViewModelCoroutines.send(HomeEventCoroutines.LoadData)
+//        homeViewModelCoroutines.send(HomeEventCoroutines.LoadData)
+
         initView()
         initToolbar()
         observeViewModel()
-
+        search()
         return binding.root
+    }
+
+    @InternalCoroutinesApi
+    private fun search() {
+        binding.rvProductResults.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@HomeScreen.requireContext())
+            pagingBeersAdapter = PagingBeersAdapter(newsItemListener, resources)
+        }
+        // Make sure we cancel the previous job before creating a new one
+        searchJob?.cancel()
+        searchJob = lifecycleScope.launch {
+            homeViewModelCoroutines.loadPagingData().collect { beer -> pagingBeersAdapter.submitData(beer) }
+        }
     }
 
     override fun onResume() {
@@ -162,7 +183,7 @@ class HomeScreen : BaseFragment() {
         binding.rvProductResults.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@HomeScreen.requireContext())
-            adapter = HomeAdapter(data, newsItemListener, resources)
+            pagingBeersAdapter = PagingBeersAdapter(newsItemListener, resources)
         }
     }
 
