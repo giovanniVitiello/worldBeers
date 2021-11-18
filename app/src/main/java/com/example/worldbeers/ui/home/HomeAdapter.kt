@@ -14,7 +14,7 @@ import com.example.worldbeers.utils.loadImageFromUrl
 
 class HomeAdapter(
     private val content: MutableList<BeerDomain>,
-    private val onClickListener: OnClickListener,
+    private val onClickListener: HomeOnClickListener,
     private val resources: Resources
 ) : RecyclerView.Adapter<DataViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
@@ -27,7 +27,7 @@ class HomeAdapter(
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) =
         holder.bind(content[position], onClickListener, resources)
 
-    class OnClickListener(val clickListener: (BeerDomain) -> Unit) {
+    class HomeOnClickListener(val clickListener: (BeerDomain) -> Unit) {
         fun onClick(content: BeerDomain) = clickListener(content)
     }
 }
@@ -42,7 +42,7 @@ class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(
         beerItem: BeerDomain,
-        onClickListener: HomeAdapter.OnClickListener,
+        onClickListener: HomeAdapter.HomeOnClickListener,
         resources: Resources
     ) {
 

@@ -1,5 +1,6 @@
 package com.example.worldbeers.network
 
+import androidx.lifecycle.LiveData
 import androidx.paging.*
 import com.example.worldbeers.ui.home.model.BeerDomain
 import com.example.worldbeers.utils.Resource
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 interface AppContract {
     fun getBeerList(): Single<Resource<List<BeerDomain>>>
     suspend fun getBeerListCoroutines(hasNetwork: Boolean = true): Resource<List<BeerDomain>>
-    fun getBeerListPagingCoroutines(): Flow<PagingData<BeerDomain>>
+    fun getBeerListPagingCoroutines(): LiveData<PagingData<BeerDomain>>
 }
 
 class AppProvider(private val backend: AppBackend) : AppContract {
@@ -49,11 +50,11 @@ class AppProvider(private val backend: AppBackend) : AppContract {
         }
     }
 
-    override fun getBeerListPagingCoroutines(): Flow<PagingData<BeerDomain>> =
+    override fun getBeerListPagingCoroutines(): LiveData<PagingData<BeerDomain>> =
         Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = { GithubRepoPagingSource(backend) }
-        ).flow
+        ).liveData
 }
 
 private const val INITIAL_PAGE = 1

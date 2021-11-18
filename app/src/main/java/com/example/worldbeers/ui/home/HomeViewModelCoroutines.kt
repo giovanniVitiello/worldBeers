@@ -27,7 +27,7 @@ class HomeViewModelCoroutines(
             return _liveData
         }
 
-    private var currentSearchResult: Flow<PagingData<BeerDomain>>? = null
+    private var currentSearchResult: LiveData<PagingData<BeerDomain>>? = null
 
     override fun send(event: HomeEventCoroutines) {
         when (event) {
@@ -42,7 +42,7 @@ class HomeViewModelCoroutines(
         }
     }
 
-    fun loadPagingData(hasNetwork: Boolean = true): Flow<PagingData<BeerDomain>> {
+    fun loadPagingData(hasNetwork: Boolean = true): LiveData<PagingData<BeerDomain>> {
         val lastResult = currentSearchResult
         if (lastResult != null) {
             return lastResult

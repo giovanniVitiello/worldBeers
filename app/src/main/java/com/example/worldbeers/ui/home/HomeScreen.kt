@@ -38,10 +38,17 @@ class HomeScreen : BaseFragment() {
     private var beerList = mutableListOf<BeerDomain>()
     private lateinit var searchItemAdapter: SearchItemAdapter
     private lateinit var pagingBeersAdapter: PagingBeersAdapter
+    private lateinit var homeAdapter: HomeAdapter
     private lateinit var searchListenerInterface: ListenerSearchInterface
     private var searchJob: Job? = null
 
     private val newsItemListener = PagingBeersAdapter.OnClickListener { content ->
+        val bundle = Bundle()
+        bundle.putString(BEER_ITEM, gson.toJson(content))
+        findNavController().navigate(R.id.detailScreen, bundle)
+    }
+
+    private val homeBeerItemListener = HomeAdapter.HomeOnClickListener { content ->
         val bundle = Bundle()
         bundle.putString(BEER_ITEM, gson.toJson(content))
         findNavController().navigate(R.id.detailScreen, bundle)
@@ -57,27 +64,24 @@ class HomeScreen : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         internalBinding = HomeScreenBinding.inflate(inflater, container, false)
 
+
+        // todo call different events for rxJava and Coroutines. Now i work with livedata and pagination with different adapter
 //        homeViewModel.send(HomeEvent.LoadData)
 //        homeViewModelCoroutines.send(HomeEventCoroutines.LoadData)
 
         initView()
         initToolbar()
         observeViewModel()
-        search()
+        loadDataPaging()
         return binding.root
     }
 
     @InternalCoroutinesApi
-    private fun search() {
-        binding.rvProductResults.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@HomeScreen.requireContext())
-            pagingBeersAdapter = PagingBeersAdapter(newsItemListener, resources)
-        }
-        // Make sure we cancel the previous job before creating a new one
-        searchJob?.cancel()
-        searchJob = lifecycleScope.launch {
-            homeViewModelCoroutines.loadPagingData().collect { beer -> pagingBeersAdapter.submitData(beer) }
+    private fun loadDataPaging() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModelCoroutines.loadPagingData().observe(viewLifecycleOwner, {
+                pagingBeersAdapter.submitData(lifecycle, it)
+            })
         }
     }
 
@@ -110,12 +114,21 @@ class HomeScreen : BaseFragment() {
             }
         }
 
+        pagingBeersAdapter = PagingBeersAdapter(newsItemListener, resources)
+
+        binding.rvProductResults.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@HomeScreen.requireContext())
+            adapter = pagingBeersAdapter
+        }
+
         binding.searchAsset.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(editable: Editable) {
                 if (editable.toString().isNotEmpty()) {
                     val tmpList = mutableListOf<BeerDomain>()
                     var alphabeticalList = mutableListOf<BeerDomain>()
+                    beerList = pagingBeersAdapter.snapshot().items.toMutableList()
                     beerList.forEach { beerDomain ->
                         if (beerDomain.name != null && beerDomain.description != null) {
                             if (beerDomain.name.contains(editable.toString(), true)) {
@@ -183,7 +196,7 @@ class HomeScreen : BaseFragment() {
         binding.rvProductResults.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@HomeScreen.requireContext())
-            pagingBeersAdapter = PagingBeersAdapter(newsItemListener, resources)
+            adapter = HomeAdapter(data, homeBeerItemListener, resources)
         }
     }
 
